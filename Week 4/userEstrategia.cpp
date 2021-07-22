@@ -11,7 +11,7 @@ tipo_Valor melhorP1;
 float temperatura;
 float k;
 float kMax;
-vector<int> melhorP1Historico;
+int melhorP1Geral;
 void init_Player1() {
 	// Determina posicao inicial.
 	reinicializa_PosicaoAleatoria();
@@ -57,17 +57,20 @@ tipo_Movimento run_Player1() {
 	}
 	
 	if(chegouMaximo == NUMCAMINHOS){
+		if(melhorP1Geral < melhorP1){
+			melhorP1Geral = melhorP1;
+		}
 		chegouMaximo = 0;
 		reinicializa_PosicaoAleatoria();
-		melhorP1Historico.push_back(melhorP1);
+		
 		melhorP1 = superf_VerAmbiente();
 	}
 
 	return movimento;
 }
 tipo_Valor result_Player1() {
-	sort(melhorP1Historico.begin(), melhorP1Historico.end());
-	melhorP1 = melhorP1Historico.back();
+	
+	melhorP1 = melhorP1Geral;
 	return melhorP1;
 }
 
