@@ -20,42 +20,45 @@ void init_Player1() {
 	melhorP1 = superf_VerAmbiente();
 }
 
+//Simulated annealing
 tipo_Movimento run_Player1() {
 	tipo_Movimento movimento;
-
+	
+	//atualiza o número de iterações
 	k = tempoBusca.count;
 	kMax = tempoBusca.maximo;
+	//calcula temperatura
 	temperatura = 1 - ((k+1)/kMax);
-	
-	
-	// Define a direcao do movimento.
-	movimento.direcao = id_Caminhos[rand()%NUMCAMINHOS];
 	
 	// Define o tamanho do passo.
 	movimento.passo = 1;
-	
+	// Define a direcao do movimento.
+	movimento.direcao = id_Caminhos[rand()%NUMCAMINHOS];
+		
 	
 	int i;
 	float custo = 0;
+	//checa o custo dos vizinhos
 	for(i = 0; i < NUMCAMINHOS; i++){
-		
 		custo = superf_VerVizinho(id_Caminhos[i]);
 		
 		float probabilidade = exp((custo - melhorP1)/temperatura);
 		
 		double r = ((double) rand() / (RAND_MAX));
+		//atualiza o melhor custo e o movimento 
 		if(custo >= melhorP1 || probabilidade > r){
 			melhorP1 = custo;
 			movimento.direcao = id_Caminhos[i];
 		}
 	}
 	int chegouMaximo = 0;
+	//checa se chegou no pico
 	for(i = 0; i < NUMCAMINHOS; i++){
 		if(superf_VerVizinho(id_Caminhos[i]) < superf_VerAmbiente()){
 			chegouMaximo++;
 		}
 	}
-	
+	//reinicia posição caso tenha chegado no pico, guardando a altura
 	if(chegouMaximo == NUMCAMINHOS){
 		if(melhorP1Geral < melhorP1){
 			melhorP1Geral = melhorP1;
@@ -69,16 +72,14 @@ tipo_Movimento run_Player1() {
 	return movimento;
 }
 tipo_Valor result_Player1() {
-	
-	melhorP1 = melhorP1Geral;
-	return melhorP1;
+	return melhorP1Geral;
 }
 
 
 // *** 	FUNCOES DE INICIALIZACAO E EXECUCAO DO JOGADOR 2 ***
 //	Implementacao da segunda estrategia de jogo.
 tipo_Valor melhorP2;
-vector<int> melhorP2Historico;
+int melhorP2Geral;
 void init_Player2() {
 	// Determina posicao inicial.
 	reinicializa_PosicaoAleatoria();
@@ -86,6 +87,8 @@ void init_Player2() {
 	// Implementacao das rotinas de inicializacao.
 	melhorP2 = superf_VerAmbiente();
 }
+
+////Random-restart hill-climbing
 tipo_Movimento run_Player2() {
 	tipo_Movimento movimento;
 	
@@ -112,18 +115,19 @@ tipo_Movimento run_Player2() {
 	}
 	
 	if(chegouMaximo == NUMCAMINHOS){
+		if(melhorP2Geral < melhorP2){
+			melhorP2Geral = melhorP2;
+		}
 		chegouMaximo = 0;
 		reinicializa_PosicaoAleatoria();
-		melhorP2Historico.push_back(melhorP2);
+		
 		melhorP2 = superf_VerAmbiente();
 	}
 
 	return movimento;
 }
 tipo_Valor result_Player2() {
-	sort(melhorP2Historico.begin(), melhorP2Historico.end());
-	melhorP2 = melhorP2Historico.back();
-	return melhorP2;
+	return melhorP2Geral;
 }
 
 
