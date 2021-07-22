@@ -34,7 +34,14 @@ tipo_Movimento run_Player1() {
 	movimento.passo = 1;
 	// Define a direcao do movimento.
 	movimento.direcao = id_Caminhos[rand()%NUMCAMINHOS];
-		
+	
+	//corrige a situação de platô
+	if(superf_VerAmbiente() == 0){
+		movimento.passo = 15;
+		movimento.direcao = id_Caminhos[rand()%NUMCAMINHOS];
+		melhorP1 = superf_VerVizinho(movimento.direcao);
+		return movimento;
+	}
 	
 	int i;
 	float custo = 0;
@@ -94,7 +101,17 @@ tipo_Movimento run_Player2() {
 	
 	// Define o tamanho do passo.
 	movimento.passo = 1;
+	// Define a direcao do movimento.
+	movimento.direcao = id_Caminhos[rand()%NUMCAMINHOS];
 	
+	//corrige a situação de platô
+	if(superf_VerAmbiente() == 0){
+		movimento.passo = 15;
+		movimento.direcao = id_Caminhos[rand()%NUMCAMINHOS];
+		melhorP1 = superf_VerVizinho(movimento.direcao);
+		return movimento;
+	}
+
 	int i;
 	float custo = 0;
 	for(i = 0; i < NUMCAMINHOS; i++){
