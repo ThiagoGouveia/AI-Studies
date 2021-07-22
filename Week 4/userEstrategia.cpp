@@ -29,7 +29,7 @@ tipo_Movimento run_Player1() {
 	
 	
 	// Define a direcao do movimento.
-	//movimento.direcao = id_Caminhos[rand()%NUMCAMINHOS];
+	movimento.direcao = id_Caminhos[rand()%NUMCAMINHOS];
 	
 	// Define o tamanho do passo.
 	movimento.passo = 1;
