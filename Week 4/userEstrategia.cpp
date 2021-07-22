@@ -1,5 +1,5 @@
 /*
-	Autor: Luis Otavio Rigo Junior
+	Autor: Thiago Rodrigues Gouveia da Silva
 	Objetivo:
 		Implementacao das estrategias definidas pelo programador.
 */
