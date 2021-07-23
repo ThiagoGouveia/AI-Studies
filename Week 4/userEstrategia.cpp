@@ -33,7 +33,7 @@ tipo_Movimento run_Player1() {
 	// Define o tamanho do passo.
 	movimento.passo = 1;
 	// Define a direcao do movimento.
-	movimento.direcao = id_Caminhos[rand()%NUMCAMINHOS];
+	//movimento.direcao = id_Caminhos[rand()%NUMCAMINHOS];
 	
 	//corrige a situação de platô
 	if(superf_VerAmbiente() == 0){
@@ -102,7 +102,7 @@ tipo_Movimento run_Player2() {
 	// Define o tamanho do passo.
 	movimento.passo = 1;
 	// Define a direcao do movimento.
-	movimento.direcao = id_Caminhos[rand()%NUMCAMINHOS];
+	//movimento.direcao = id_Caminhos[rand()%NUMCAMINHOS];
 	
 	//corrige a situação de platô
 	if(superf_VerAmbiente() == 0){
